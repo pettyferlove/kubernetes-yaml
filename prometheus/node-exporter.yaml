@@ -18,6 +18,9 @@ spec:
             - containerPort: 9100
               protocol: TCP
               name: http
+  selector:
+    matchLabels:
+     k8s-app: node-exporter
 ---
 apiVersion: v1
 kind: Service
