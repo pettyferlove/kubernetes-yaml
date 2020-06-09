@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: grafana-core
@@ -40,6 +40,9 @@ spec:
       volumes:
         - name: grafana-persistent-storage
           emptyDir: {}
+  selector:
+    matchLabels:
+      app: grafana
 
 ---
 apiVersion: v1
