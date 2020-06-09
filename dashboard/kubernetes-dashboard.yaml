@@ -130,8 +130,8 @@ metadata:
   name: kubernetes-dashboard
 rules:
   # Allow Metrics Scraper to get metrics from the Metrics server
-  - apiGroups: ["metrics.k8s.io"]
-    resources: ["pods", "nodes"]
+  - apiGroups: [""]
+    resources: ["pods", "nodes", "namespace"]
     verbs: ["get", "list", "watch"]
 
 ---
