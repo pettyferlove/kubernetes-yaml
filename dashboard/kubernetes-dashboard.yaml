@@ -63,19 +63,6 @@ kind: Secret
 metadata:
   labels:
     k8s-app: kubernetes-dashboard
-  name: kubernetes-dashboard-csrf
-  namespace: kube-system
-type: Opaque
-data:
-  csrf: ""
-
----
-
-apiVersion: v1
-kind: Secret
-metadata:
-  labels:
-    k8s-app: kubernetes-dashboard
   name: kubernetes-dashboard-key-holder
   namespace: kube-system
 type: Opaque
