@@ -26,6 +26,10 @@ spec:
               cpu: 100m
               memory: 100Mi
           env:
+            - name: GF_SECURITY_ADMIN_USER
+              value: admin
+            - name: GF_SECURITY_ADMIN_PASSWORD
+              value: admin
             - name: GF_AUTH_BASIC_ENABLED
               value: "true"
             - name: GF_AUTH_ANONYMOUS_ENABLED
@@ -39,7 +43,8 @@ spec:
               mountPath: /var
       volumes:
         - name: grafana-persistent-storage
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: grafana
   selector:
     matchLabels:
       app: grafana
