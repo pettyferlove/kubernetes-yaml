@@ -18,6 +18,25 @@ spec:
         - image: grafana/grafana:5.0.0
           name: grafana-core
           imagePullPolicy: IfNotPresent
+          readinessProbe:
+            failureThreshold: 10
+            httpGet:
+              path: /api/health
+              port: 3000
+              scheme: HTTP
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 30
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /api/health
+              port: 3000
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
           resources:
             limits:
               cpu: 100m
@@ -34,13 +53,12 @@ spec:
               value: "true"
             - name: GF_AUTH_ANONYMOUS_ENABLED
               value: "false"
-          readinessProbe:
-            httpGet:
-              path: /login
-              port: 3000
           volumeMounts:
-            - name: grafana-persistent-storage
-              mountPath: /var
+            - mountPath: /var/lib/grafana
+              subPath: grafana
+              name: grafana-persistent-storage
+      securityContext:
+        runAsUser: 0
       volumes:
         - name: grafana-persistent-storage
           persistentVolumeClaim:
