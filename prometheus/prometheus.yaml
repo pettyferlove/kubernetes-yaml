@@ -32,6 +32,7 @@ spec:
           volumeMounts:
             - mountPath: "/prometheus"
               name: data
+              subPath: prometheus
             - mountPath: "/etc/prometheus"
               name: config-volume
           resources:
@@ -42,6 +43,8 @@ spec:
               cpu: 500m
               memory: 2500Mi
       serviceAccountName: prometheus
+      securityContext:
+        runAsUser: 0 # nobody用户，否则NFS写入无权限
       volumes:
         - name: data
           persistentVolumeClaim:
