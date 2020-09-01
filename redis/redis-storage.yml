@@ -1,0 +1,32 @@
+## PV
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: redis
+  labels:
+    app: redis
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  nfs:
+    server: 192.168.13.57
+    path: /home/nfs
+  persistentVolumeReclaimPolicy: Retain
+---
+## PVC
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: redis
+  namespace: leaf6
+spec:
+  resources:
+    requests:
+      storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  selector:
+    matchLabels:
+      app: redis
