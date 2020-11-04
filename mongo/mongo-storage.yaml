@@ -1,0 +1,33 @@
+---
+## PV
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mongodb-persistent-volume
+  labels:
+    app: mongodb-persistent-volume
+spec:
+  capacity:
+    storage: 20Gi
+  accessModes:
+    - ReadWriteOnce
+  nfs:
+    server: 192.168.13.57
+    path: /home/nfs
+  persistentVolumeReclaimPolicy: Retain
+---
+## PVC
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: mongodb-persistent-volume-claim
+  namespace: jndjrd-qyd
+spec:
+  resources:
+    requests:
+      storage: 20Gi
+  accessModes:
+    - ReadWriteOnce
+  selector:
+    matchLabels:
+      app: mongodb-persistent-volume

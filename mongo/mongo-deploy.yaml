@@ -1,0 +1,73 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: mongodb
+  namespace: jndjrd-qyd
+  labels:
+    k8s-app: mongodb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: mongodb
+  template:
+    metadata:
+      name: mongodb
+      labels:
+        k8s-app: mongodb
+    spec:
+      containers:
+        - name: mongodb
+          image: mongo
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: Always
+          securityContext:
+            privileged: false
+          volumeMounts:
+            - name: data
+              subPath: mongo/db
+              mountPath: /data/db
+            - name: data
+              subPath: mongo/configdb
+              mountPath: /data/configdb
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: mongodb-persistent-volume-claim
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: mongodb
+  namespace: jndjrd-qyd
+  labels:
+    k8s-app: mongodb
+spec:
+  ports:
+    - name: tcp-27017-27017-mongodb
+      protocol: TCP
+      port: 27017
+      targetPort: 27017
+      nodePort: 32336
+  selector:
+    k8s-app: mongodb
+  type: LoadBalancer
+  externalIPs:
+    - 192.168.13.57
+  sessionAffinity: None
+  externalTrafficPolicy: Cluster
+
