@@ -1,0 +1,44 @@
+## Deployment
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: mysql-server
+  namespace: default
+  labels:
+    k8s-app: mysql-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: mysql-server
+  template:
+    metadata:
+      name: mysql-server
+      labels:
+        k8s-app: mysql-server
+    spec:
+      containers:
+        - name: mysql
+          image: 'mysql:8.0.20'
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: root
+          imagePullPolicy: Always
+          securityContext:
+            privileged: false
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/mysql
+              subPath: mysql/data
+      restartPolicy: Always
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: mysql-persistent-volume-claim
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600
