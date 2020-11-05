@@ -2,7 +2,7 @@ kind: ConfigMap
 apiVersion: v1
 metadata:
   name: redis-config
-  namespace: leaf6
+  namespace: default
 data:
   redis.conf: |-
     dir /data

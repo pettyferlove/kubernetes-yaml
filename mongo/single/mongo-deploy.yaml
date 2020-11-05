@@ -2,7 +2,7 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: mongodb
-  namespace: jndjrd-qyd
+  namespace: default
   labels:
     k8s-app: mongodb
 spec:
@@ -53,7 +53,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: mongodb
-  namespace: jndjrd-qyd
+  namespace: default
   labels:
     k8s-app: mongodb
 spec:
@@ -66,8 +66,6 @@ spec:
   selector:
     k8s-app: mongodb
   type: LoadBalancer
-  externalIPs:
-    - 192.168.13.57
   sessionAffinity: None
   externalTrafficPolicy: Cluster
 

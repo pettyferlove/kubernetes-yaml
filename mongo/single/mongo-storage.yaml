@@ -21,7 +21,7 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: mongodb-persistent-volume-claim
-  namespace: jndjrd-qyd
+  namespace: default
 spec:
   resources:
     requests:
