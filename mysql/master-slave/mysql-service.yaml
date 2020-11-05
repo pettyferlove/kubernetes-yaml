@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+spec:
+  ports:
+    - name: mysql
+      port: 3306
+  clusterIP: None
+  selector:
+    app: mysql
+---
+# 客户端连接任意节点进行读取
+# 写操作则只针对master
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-read
+  labels:
+    app: mysql
+spec:
+  ports:
+    - name: mysql
+      port: 3306
+  selector:
+    app: mysql
