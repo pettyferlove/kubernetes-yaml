@@ -1,0 +1,1 @@
+# 常用Kubernetes应用部署Yaml文件
