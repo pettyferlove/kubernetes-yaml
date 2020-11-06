@@ -15,7 +15,7 @@ spec:
     spec:
       initContainers:
         - name: init-mysql
-          image: mysql:8.0.20
+          image: mysql:8.0.18
           command:
             - bash
             - "-c"
@@ -45,9 +45,6 @@ spec:
             - "-c"
             - |
               set -ex
-              # 如果有数据不必克隆数据，直接退出()
-              [[ -d /var/lib/mysql/mysql ]] && exit 0
-              # 如果是master数据也不必克隆
               [[ `hostname` =~ -([0-9]+)$ ]] || exit 1
               ordinal=${BASH_REMATCH[1]}
               [[ $ordinal -eq 0 ]] && exit 0
@@ -63,7 +60,7 @@ spec:
               mountPath: /etc/mysql/conf.d
       containers:
         - name: mysql
-          image: mysql:8.0.20
+          image: mysql:8.0.18
           env:
             - name: MYSQL_ROOT_PASSWORD
               value: root
