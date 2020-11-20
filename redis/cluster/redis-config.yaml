@@ -12,5 +12,5 @@ data:
     protected-mode no
     pidfile /data/redis-6379.pid
     cluster-enabled yes
-    cluster-config-file /var/lib/redis/nodes.conf
+    cluster-config-file /data/nodes.conf
     cluster-node-timeout 5000

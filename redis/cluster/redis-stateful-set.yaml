@@ -48,10 +48,10 @@ spec:
               containerPort: 16379
               protocol: "TCP"
           volumeMounts:
-            - name: "redis-conf"
-              mountPath: "/etc/redis"
-            - name: "redis-data"
-              mountPath: "/var/lib/redis"
+            - name: redis-conf
+              mountPath: /etc/redis
+            - name: redis-data
+              mountPath: /data
       volumes:
         - name: redis-conf
           configMap:

@@ -24,5 +24,6 @@ spec:
   ports:
     - name: mysql
       port: 3306
+  type: NodePort
   selector:
     app: mysql
