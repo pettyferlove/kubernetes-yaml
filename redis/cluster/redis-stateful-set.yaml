@@ -32,6 +32,7 @@ spec:
           image: "redis:5.0.8"
           command:
             - "redis-server"
+          # 指定环境变量，值为当前POD的IP
           env:
             - name: POD_IP
               valueFrom:
@@ -41,7 +42,7 @@ spec:
             - "/etc/redis/redis.conf"
             - "--protected-mode"
             - "no"
-            - "--cluster-announce-ip"
+            - "--cluster-announce-ip" #当POD重启后自动更新节点IP
             - "$(POD_IP)"
           resources:
             requests:
