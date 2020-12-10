@@ -16,14 +16,14 @@ spec:
         app: prometheus
     spec:
       containers:
-        - image: prom/prometheus:v2.0.0
+        - image: prom/prometheus
           name: prometheus
           command:
             - "/bin/prometheus"
           args:
             - "--config.file=/etc/prometheus/prometheus.yml"
             - "--storage.tsdb.path=/prometheus"
-            - "--storage.tsdb.retention=30d"
+            - "--storage.tsdb.retention=7d"
             - "--web.enable-admin-api"  # 控制对admin HTTP API的访问，其中包括删除时间序列等功能
             - "--web.enable-lifecycle"  # 支持热更新，直接执行localhost:9090/-/reload立即生效
           ports:
