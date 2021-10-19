@@ -3,13 +3,10 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: mysql-persistent-volume-claim
-  namespace: default
 spec:
   resources:
     requests:
       storage: 1Gi
   accessModes:
     - ReadWriteOnce
-  selector:
-    matchLabels:
-      app: mysql-persistent-volume
+  st

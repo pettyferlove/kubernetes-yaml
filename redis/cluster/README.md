@@ -31,21 +31,21 @@ pip install redis-trib==0.5.1
 
 // 创建Master节点
 redis-trib.py create \
-  `dig +short redis-cluster-0.redis-service.default.svc.cluster.local`:6379 \
-  `dig +short redis-cluster-1.redis-service.default.svc.cluster.local`:6379 \
-  `dig +short redis-cluster-2.redis-service.default.svc.cluster.local`:6379
+  `dig +short redis-cluster-0.redis-service.jndjrd-qyd-prod.svc.cluster.local`:6379 \
+  `dig +short redis-cluster-1.redis-service.jndjrd-qyd-prod.svc.cluster.local`:6379 \
+  `dig +short redis-cluster-2.redis-service.jndjrd-qyd-prod.svc.cluster.local`:6379
 
 // 为每个Master节点添加从节点
 redis-trib.py replicate \
-  --master-addr `dig +short redis-cluster-0.redis-service.default.svc.cluster.local`:6379 \
-  --slave-addr `dig +short redis-cluster-3.redis-service.default.svc.cluster.local`:6379
+  --master-addr `dig +short redis-cluster-0.redis-service.jndjrd-qyd-prod.svc.cluster.local`:6379 \
+  --slave-addr `dig +short redis-cluster-3.redis-service.jndjrd-qyd-prod.svc.cluster.local`:6379
 
 redis-trib.py replicate \
-  --master-addr `dig +short redis-cluster-1.redis-service.default.svc.cluster.local`:6379 \
-  --slave-addr `dig +short redis-cluster-4.redis-service.default.svc.cluster.local`:6379
+  --master-addr `dig +short redis-cluster-1.redis-service.jndjrd-qyd-prod.svc.cluster.local`:6379 \
+  --slave-addr `dig +short redis-cluster-4.redis-service.jndjrd-qyd-prod.svc.cluster.local`:6379
 
 redis-trib.py replicate \
-  --master-addr `dig +short redis-cluster-2.redis-service.default.svc.cluster.local`:6379 \
-  --slave-addr `dig +short redis-cluster-5.redis-service.default.svc.cluster.local`:6379
+  --master-addr `dig +short redis-cluster-2.redis-service.jndjrd-qyd-prod.svc.cluster.local`:6379 \
+  --slave-addr `dig +short redis-cluster-5.redis-service.jndjrd-qyd-prod.svc.cluster.local`:6379
 
 ```

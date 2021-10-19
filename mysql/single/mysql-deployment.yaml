@@ -3,7 +3,7 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: mysql-server
-  namespace: default
+  namespace: caas
   labels:
     k8s-app: mysql-server
 spec:
